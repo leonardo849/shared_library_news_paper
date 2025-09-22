@@ -1,6 +1,8 @@
 package consts
 
-const ExchangeNameAuthEvents = "auth_events"
-const KeyUserAuth = "user.auth."
-const EventUserVerified = "verified"
-const KeyUserAuthVerified = KeyUserAuth + EventUserVerified
+
+const (
+    ExchangeNameAuthEvents = "auth_events"
+    KeyUserAuthVerified = "user.auth.verified"
+    KeyUserAuthDeleted  = "user.auth.deleted"
+)

@@ -30,3 +30,16 @@ func TestRoles(t *testing.T) {
 		t.Error("error in roles")
 	}
 } 
+
+func TestAuthConsts(t *testing.T) {
+	if consts.ExchangeNameAuthEvents != "auth_events" || consts.KeyUserAuthDeleted != "user.auth.deleted" || consts.KeyUserAuthVerified != "user.auth.verified" {
+		t.Error("error in auth consts")
+	}
+}
+
+func TestEmailConsts(t *testing.T)  {
+	if consts.ExchangeNameEmail != "email_direct" || consts.KeyEmail != "email" {
+		t.Error("error in email consts")
+	}
+}
+
