@@ -19,6 +19,12 @@ func HandleErrors(err error, model string) (status int, message string) {
 		return 404, message
 	} else if strings.Contains(errMessage, errorsUfb.CONFLICT) {
 		return 409, message
+	} else if strings.Contains(errMessage, errorsUfb.UNAUTHORIZED) {
+		return 401, message
+	} else if strings.Contains(errMessage, errorsUfb.FORBIDDEN) {
+		return 403, message
+	} else if strings.Contains(errMessage, errorsUfb.BADREQUEST) {
+		return 400, message
 	} else {
 		return 500, message
 	}
