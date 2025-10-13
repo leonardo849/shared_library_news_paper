@@ -1,0 +1,43 @@
+package middlewares
+
+import (
+	"fmt"
+	"strings"
+	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v5"
+)
+
+
+
+func VerifyJWT(secretKey string) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		authHeader := ctx.Get("Authorization")
+		if authHeader == "" {
+			return  ctx.Status(401).JSON(fiber.Map{"error": "there isn't token"})
+		}
+		parts := strings.Split(authHeader, " ")
+		if len(parts) != 2 {
+			return  ctx.Status(401).JSON(fiber.Map{"error": "your token is wrong"})
+		}
+		if parts[0] != "Bearer" {
+			return  ctx.Status(401).JSON(fiber.Map{"error": "the token is without the prefix 'bearer'"})
+		}
+		tokenString := parts[1]
+
+		token, err := jwt.Parse(tokenString, func(t *jwt.Token) (any, error) {
+			_, ok := t.Method.(*jwt.SigningMethodHMAC)
+			if !ok {
+				return  nil, fmt.Errorf("unexpected signing method")
+			} else {
+				return []byte(secretKey), nil
+			}
+		})
+		if err != nil || !token.Valid {
+			return ctx.Status(401).JSON(fiber.Map{"error": err.Error()})
+		}
+		claims := token.Claims.(jwt.MapClaims)
+		ctx.Locals("user", claims)
+		return  ctx.Next()
+
+	}
+}
