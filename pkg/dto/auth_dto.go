@@ -5,3 +5,8 @@ type AuthPublishUserCreated struct {
 	Username  string `json:"username"`
 	Role string `json:"role"`
 }
+
+type AuthPublishUserUpdated struct {
+	Username  *string    `json:"username"`
+	Role      *string    `json:"role"`
+}
