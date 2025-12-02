@@ -1,11 +1,11 @@
 package dto
 
-type UserCreatedErrorDTO struct {
+type NewsUserCreatedErrorDTO struct {
 	AuthID string `json:"id"`
 	Message string `json:"message"`
 }
 
-type UserCreatedDTO struct {
+type NewsUserCreatedDTO struct {
 	AuthID string `json:"id"`
 	Message string `json:"message"`
 }
